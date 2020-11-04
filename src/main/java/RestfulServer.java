@@ -53,9 +53,9 @@ class RestfulServer{
     //return all the properties of the requests coming in
     private String HttpRequestToJson(Request request){
         String hold, hit, str;
-        hit = "You have decided to take another card!";
-        hold = "You have decided to keep your current hand!";
-        str = "Could not parse decision.";
+        hit = "You have decided to take another card!\n";
+        hold = "You have decided to keep your current hand!\n";
+        str = "Could not parse decision.\n";
 
         if (request.body().equalsIgnoreCase("HIT")){
             String card = getCard();
