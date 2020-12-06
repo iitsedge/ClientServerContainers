@@ -1,10 +1,14 @@
 //import org.apache.log4j.BasicConfigurator;
-
 import spark.Request;
 import spark.Response;
 import spark.Spark;
 
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Properties;
+import java.util.Random;
 
 class RestfulServer{
 
@@ -18,7 +22,7 @@ class RestfulServer{
         }
     };
 
-    public String getCard(){
+    public static String getCard(){
         Random rand = new Random();
         int x = rand.nextInt(counter);
         String card = deck.get(x);
@@ -26,6 +30,7 @@ class RestfulServer{
         counter--;
         return card;
     }
+
     public RestfulServer(){
         this.configureRestfulApiServer();
         this.processRestfulAPIRequests();
@@ -52,31 +57,28 @@ class RestfulServer{
 
     //return all the properties of the requests coming in
     private String HttpRequestToJson(Request request){
-        String hold, hit, str;
-        hit = "You have decided to take another card!\n";
-        hold = "You have decided to keep your current hand!\n";
-        str = "Could not parse decision.\n";
-
-        if (request.body().equalsIgnoreCase("HIT")){
-            String card = getCard();
-            System.out.println(hit);
-            System.out.println("Card dealt: "+card);
-            System.out.println("Cards remaining in deck: "+counter);
-            System.out.println("Size of Array: "+deck.size());
-            return card;
-        }
-        else if(request.body().equalsIgnoreCase("HOLD")){
-            System.out.println(hold);
-            System.out.println("Request Body: " + request.body());
-            return hold;
-        }else{
-            System.out.println(str);
-            System.out.println("Request Body: " + request.body());
-            return str;
-        }
-        //System.out.println("This is my body- " + request.body());
 
 
+        String ret = "default";
+        ret = handleDealer(request);
+
+        System.out.println("Dealers choice - " +request.queryParams("DealerHit"));
+        System.out.println("Players choice - " +request.queryParams("PlayerHit"));
+        System.out.println("We are in requestJSON "+ ret);
+            //DealerCard_DealerTotal_PlayerCard_PlayerTotal
+
+        return ret;
+
+    }
+
+    public static String handleDealer(Request request){
+            if(request.queryParams("DealerHit")!=null){
+                String card = getCard();
+                System.out.println("We are here " + card);
+                return card;
+            }
+        System.out.println("We are in the else part ");
+        return "lol";
     }
     public static void main(String[] argv)  {
         RestfulServer restfulServer = new RestfulServer();
