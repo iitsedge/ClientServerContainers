@@ -140,7 +140,7 @@ class RestfulServer{
         String card = deck.get(x);
         deck.remove(x);
         counter--;
-        System.out.println("Card drawn. Cards Left in Deck: "+deck.size());
+        //System.out.println("Card drawn. Cards Left in Deck: "+deck.size());
         return card;
     }
 
@@ -359,7 +359,7 @@ class RestfulServer{
                     if (player1bust){
                         return "TIE";
                     }
-                    return "BUST: --> TOTAL: "+player2Total;
+                    return "BUST --> TOTAL: "+player2Total;
                 }else {
                     return card + " --> TOTAL: " + player2Total;
                 }

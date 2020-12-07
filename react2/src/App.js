@@ -9,14 +9,17 @@ class App extends Component{
     }
 
     Player1OptionHit () {
-        Axios.get('http://192.168.0.22:5542?playerChoice=hit1').then((response)=>{
+        Axios.get('http://192.168.0.20:5542?playerChoice=hit1').then((response)=>{
             console.log(response.data)
             this.setState({ player1 : response.data});
+            if (response.data=="WINNER"||response.data=="LOSER"||response.data=="TIE"){
+                this.setState({disabled:true})
+            }
         });
     }
 
     Player1OptionHold () {
-        Axios.get('http://192.168.0.22:5542?playerChoice=hold1').then((response)=>{
+        Axios.get('http://192.168.0.20:5542?playerChoice=hold1').then((response)=>{
             console.log(response.data)
             this.setState({ player1 : response.data});
             if (response.data=="WINNER"||response.data=="LOSER"||response.data=="TIE"){
@@ -26,14 +29,17 @@ class App extends Component{
     }
 
     Player2OptionHit () {
-        Axios.get('http://192.168.0.22:5542?playerChoice=hit2').then((response)=>{
+        Axios.get('http://192.168.0.20:5542?playerChoice=hit2').then((response)=>{
             console.log(response.data)
             this.setState({ player2 : response.data});
+            if (response.data=="WINNER"||response.data=="LOSER"||response.data=="TIE"){
+                this.setState({disabled:true})
+            }
         });
     }
 
     Player2OptionHold () {
-        Axios.get('http://192.168.0.22:5542?playerChoice=hold2').then((response)=>{
+        Axios.get('http://192.168.0.20:5542?playerChoice=hold2').then((response)=>{
             console.log(response.data)
             this.setState({ player2 : response.data});
             if (response.data=="WINNER"||response.data=="LOSER"||response.data=="TIE"){
@@ -43,7 +49,7 @@ class App extends Component{
     }
 
     Reset(){
-     Axios.get('http://192.168.0.22:5542?reset=true').then((playerResponse)=>{
+     Axios.get('http://192.168.0.20:5542?reset=true').then((playerResponse)=>{
             console.log(playerResponse.data)
           this.setState({ player1 : "Ready."});
           this.setState({ player2 : "Ready."});
