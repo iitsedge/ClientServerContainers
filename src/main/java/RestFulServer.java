@@ -140,7 +140,7 @@ class RestfulServer{
         String card = deck.get(x);
         deck.remove(x);
         counter--;
-        System.out.println("Card drawn. Cards Left in Deck: "+deck.size());
+        //System.out.println("Card drawn. Cards Left in Deck: "+deck.size());
         return card;
     }
 
