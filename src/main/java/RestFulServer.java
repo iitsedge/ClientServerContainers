@@ -6,6 +6,8 @@ import spark.Spark;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
@@ -155,19 +157,23 @@ class RestfulServer{
 
     }
 
-    public static String handleDealer(Request request){
+    public static String handleDealer(Request request) {
 
         String ret ="";
+        System.out.print("Trying to Reset...\n");
+        if (request.queryParams("reset")!=null){
+            System.out.print("Getting closer ...\n");
+            if(request.queryParams("reset").equals("true")){
+                counter = 52;
+                dealerTotal = 0;
+                playerTotal = 0;
+                deck = deckBackup;
+                System.out.print("Game Reset.");
 
-//        if(request.queryParams("reset").equals("true")){
-//            counter = 52;
-//            dealerTotal = 0;
-//            playerTotal = 0;
-//            deck = deckBackup;
-//            System.out.print("Game Reset.");
-//
-//            return ret;
-//        }
+                return ret;
+            }
+        }
+
 
             if(request.queryParams("playerChoice").equals("hit")){
                 String card = getCard();
