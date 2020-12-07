@@ -359,7 +359,7 @@ class RestfulServer{
                     if (player1bust){
                         return "TIE";
                     }
-                    return "BUST: --> TOTAL: "+player2Total;
+                    return "BUST --> TOTAL: "+player2Total;
                 }else {
                     return card + " --> TOTAL: " + player2Total;
                 }
